@@ -1,14 +1,11 @@
 package com.lipi.keyboard
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.lipi.keyboard.ui.main.MainScreen
+import com.lipi.keyboard.ui.settings.SettingsScreen
 
 @Composable
 fun MainNavigation() {
@@ -21,6 +18,9 @@ fun MainNavigation() {
       entryProvider {
         entry<Main> {
           MainScreen(onItemClick = { navKey -> backStack.add(navKey) })
+        }
+        entry<SettingsScreenKey> {
+          SettingsScreen(onBackClick = { backStack.removeLastOrNull() })
         }
       },
   )

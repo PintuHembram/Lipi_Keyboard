@@ -56,8 +56,9 @@ class KeyboardRootView @JvmOverloads constructor(
                     controller.handleKey(com.lipi.keyboard.layout.KeyData(label = "🌐", type = com.lipi.keyboard.layout.KeyType.LANGUAGE))
                 }
                 "⚙" -> {
-                    val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS).apply {
+                    val intent = Intent(context, com.lipi.keyboard.MainActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        putExtra("OPEN_SETTINGS", true)
                     }
                     context.startActivity(intent)
                 }

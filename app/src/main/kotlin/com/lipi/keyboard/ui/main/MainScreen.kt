@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -47,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavKey
 import com.lipi.keyboard.R
+import com.lipi.keyboard.SettingsScreenKey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,6 +80,11 @@ fun MainScreen(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { onItemClick(SettingsScreenKey) }) {
+                        Text("⚙️", fontSize = 20.sp)
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -132,6 +140,38 @@ fun MainScreen(
                             fontSize = 11.sp
                         )
                     }
+                }
+            }
+
+            // Quick Settings Access Card
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClick(SettingsScreenKey) },
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            "⚙️ Keyboard Settings",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                        Text(
+                            "Themes, Height, Vibration, Sound & Feedback Email",
+                            fontSize = 12.sp,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+                    }
+                    Text("➔", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondaryContainer)
                 }
             }
 
