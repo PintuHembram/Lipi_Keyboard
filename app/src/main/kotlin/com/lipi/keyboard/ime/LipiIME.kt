@@ -3,6 +3,7 @@ package com.lipi.keyboard.ime
 import android.inputmethodservice.InputMethodService
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.lipi.keyboard.data.SettingsManager
 import com.lipi.keyboard.keyboard.KeyboardRootView
 import com.lipi.keyboard.suggest.SuggestionEngine
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +46,12 @@ class LipiIME : InputMethodService() {
 
     override fun onStartInputView(info: EditorInfo, restarting: Boolean) {
         super.onStartInputView(info, restarting)
+        if (!restarting) {
+            val defaultLayoutId = SettingsManager.getDefaultLayoutId(this)
+            controller.currentLayoutId = defaultLayoutId
+        }
         controller.onStart(info, restarting)
+        rootView?.applySettings()
         rootView?.loadLayout(controller.currentLayoutId)
     }
 

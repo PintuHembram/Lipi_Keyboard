@@ -1,6 +1,5 @@
 package com.lipi.keyboard.ui.settings
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
@@ -28,7 +27,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
@@ -50,6 +48,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lipi.keyboard.data.SettingsManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,11 +58,11 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
 
-    var selectedTheme by remember { mutableStateOf("Dark AMOLED") }
-    var selectedLayout by remember { mutableStateOf("Odia Transliteration") }
-    var keyboardHeightScale by remember { mutableFloatStateOf(100f) }
-    var hapticFeedbackEnabled by remember { mutableStateOf(true) }
-    var soundFeedbackEnabled by remember { mutableStateOf(false) }
+    var selectedTheme by remember { mutableStateOf(SettingsManager.getTheme(context)) }
+    var selectedLayout by remember { mutableStateOf(SettingsManager.getDefaultLayoutName(context)) }
+    var keyboardHeightScale by remember { mutableFloatStateOf(SettingsManager.getHeightScale(context)) }
+    var hapticFeedbackEnabled by remember { mutableStateOf(SettingsManager.isHapticEnabled(context)) }
+    var soundFeedbackEnabled by remember { mutableStateOf(SettingsManager.isSoundEnabled(context)) }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -122,13 +121,19 @@ fun SettingsScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { selectedTheme = themeName }
+                                .clickable {
+                                    selectedTheme = themeName
+                                    SettingsManager.setTheme(context, themeName)
+                                }
                                 .padding(vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             RadioButton(
                                 selected = (selectedTheme == themeName),
-                                onClick = { selectedTheme = themeName }
+                                onClick = {
+                                    selectedTheme = themeName
+                                    SettingsManager.setTheme(context, themeName)
+                                }
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Box(
@@ -169,13 +174,19 @@ fun SettingsScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { selectedLayout = name }
+                                .clickable {
+                                    selectedLayout = name
+                                    SettingsManager.setDefaultLayoutName(context, name)
+                                }
                                 .padding(vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             RadioButton(
                                 selected = (selectedLayout == name),
-                                onClick = { selectedLayout = name }
+                                onClick = {
+                                    selectedLayout = name
+                                    SettingsManager.setDefaultLayoutName(context, name)
+                                }
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Column {
@@ -220,7 +231,10 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Slider(
                         value = keyboardHeightScale,
-                        onValueChange = { keyboardHeightScale = it },
+                        onValueChange = {
+                            keyboardHeightScale = it
+                            SettingsManager.setHeightScale(context, it)
+                        },
                         valueRange = 80f..120f,
                         steps = 7
                     )
@@ -252,7 +266,10 @@ fun SettingsScreen(
                         }
                         Switch(
                             checked = hapticFeedbackEnabled,
-                            onCheckedChange = { hapticFeedbackEnabled = it }
+                            onCheckedChange = {
+                                hapticFeedbackEnabled = it
+                                SettingsManager.setHapticEnabled(context, it)
+                            }
                         )
                     }
 
@@ -269,7 +286,10 @@ fun SettingsScreen(
                         }
                         Switch(
                             checked = soundFeedbackEnabled,
-                            onCheckedChange = { soundFeedbackEnabled = it }
+                            onCheckedChange = {
+                                soundFeedbackEnabled = it
+                                SettingsManager.setSoundEnabled(context, it)
+                            }
                         )
                     }
                 }

@@ -1,24 +1,39 @@
 package com.lipi.keyboard.util
 
 import android.content.Context
+import android.media.AudioManager
 import android.os.Build
-import android.os.CombinedVibration
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.view.HapticFeedbackConstants
 import android.view.View
+import com.lipi.keyboard.data.SettingsManager
 
 object HapticsHelper {
 
     fun performKeyTick(view: View) {
-        // Try system view haptic feedback first
-        val performed = view.performHapticFeedback(
-            HapticFeedbackConstants.KEYBOARD_TAP,
-            HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
-        )
-        if (!performed) {
-            vibrate(view.context, 10L)
+        val context = view.context
+
+        // 1. Haptic Vibration
+        if (SettingsManager.isHapticEnabled(context)) {
+            val performed = view.performHapticFeedback(
+                HapticFeedbackConstants.KEYBOARD_TAP,
+                HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            )
+            if (!performed) {
+                vibrate(context, 10L)
+            }
+        }
+
+        // 2. Sound Effect
+        if (SettingsManager.isSoundEnabled(context)) {
+            try {
+                val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+                audioManager?.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD)
+            } catch (_: Exception) {
+                // Ignore audio exception
+            }
         }
     }
 
@@ -40,7 +55,7 @@ object HapticsHelper {
                 }
             }
         } catch (_: Exception) {
-            // In case of permission restriction
+            // Ignore vibration exception
         }
     }
 }

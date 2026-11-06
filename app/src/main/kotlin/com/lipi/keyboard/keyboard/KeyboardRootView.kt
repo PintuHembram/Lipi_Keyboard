@@ -3,9 +3,9 @@ package com.lipi.keyboard.keyboard
 import android.content.Context
 import android.content.Intent
 import android.inputmethodservice.InputMethodService
-import android.provider.Settings
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import com.lipi.keyboard.data.SettingsManager
 import com.lipi.keyboard.ime.InputController
 import com.lipi.keyboard.layout.LayoutParser
 
@@ -78,8 +78,32 @@ class KeyboardRootView @JvmOverloads constructor(
             controller.handleKey(key)
         }
 
-        // Set initial layout
+        // Apply settings & set initial layout
+        applySettings()
         loadLayout(controller.currentLayoutId)
+    }
+
+    fun applySettings() {
+        val themeName = SettingsManager.getTheme(context)
+        val colors = SettingsManager.getThemeColors(themeName)
+
+        keyboardView.bgColor = colors.bgColor
+        keyboardView.keyNormalColor = colors.keyNormalColor
+        keyboardView.keySpecialColor = colors.keySpecialColor
+        keyboardView.keyAccentColor = colors.keyAccentColor
+        keyboardView.keyPressedColor = colors.keyPressedColor
+        keyboardView.textColor = colors.textColor
+        keyboardView.hintColor = colors.hintColor
+        keyboardView.invalidate()
+
+        toolbarView.setBackgroundColor(colors.bgColor)
+        candidateBarView.setBackgroundColor(colors.bgColor)
+        bottomBarView.setBackgroundColor(colors.bgColor)
+
+        val density = resources.displayMetrics.density
+        val scale = SettingsManager.getHeightScale(context) / 100f
+        val keyboardHeight = (200 * density * scale).toInt()
+        keyboardView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, keyboardHeight)
     }
 
     fun loadLayout(layoutId: String) {
