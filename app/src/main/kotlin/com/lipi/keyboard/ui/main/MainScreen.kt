@@ -120,7 +120,7 @@ fun MainScreen(
                             fontSize = 20.sp
                         )
                         Text(
-                            "WRANGCHIT — HO SCRIPT —",
+                            "WARANG CHITI — HO SCRIPT —",
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFFFFB300),
                             fontSize = 13.sp
