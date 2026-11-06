@@ -16,14 +16,14 @@ class KeyboardToolbarView(context: Context) : LinearLayout(context) {
         setBackgroundColor(Color.parseColor("#1B1B1F"))
         gravity = Gravity.CENTER_VERTICAL
         val density = resources.displayMetrics.density
-        setPadding((24 * density).toInt(), (8 * density).toInt(), (24 * density).toInt(), (8 * density).toInt())
+        setPadding((24 * density).toInt(), (0 * density).toInt(), (24 * density).toInt(), (0 * density).toInt())
 
         val items = listOf("🌐", "😊", "⚙")
 
         for (item in items) {
             val tv = TextView(context).apply {
                 text = item
-                textSize = 22f
+                textSize = 25f
                 setTextColor(Color.parseColor("#FFFFFF"))
                 gravity = Gravity.CENTER
                 layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
