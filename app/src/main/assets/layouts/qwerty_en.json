@@ -1,0 +1,57 @@
+{
+  "id": "qwerty_en",
+  "name": "English (US)",
+  "language": "en",
+  "rows": [
+    {
+      "keys": [
+        { "label": "Q", "output": "q", "alt": ["1"], "weight": 1.0 },
+        { "label": "W", "output": "w", "alt": ["2"], "weight": 1.0 },
+        { "label": "E", "output": "e", "alt": ["3"], "weight": 1.0 },
+        { "label": "R", "output": "r", "alt": ["4"], "weight": 1.0 },
+        { "label": "T", "output": "t", "alt": ["5"], "weight": 1.0 },
+        { "label": "Y", "output": "y", "alt": ["6"], "weight": 1.0 },
+        { "label": "U", "output": "u", "alt": ["7"], "weight": 1.0 },
+        { "label": "I", "output": "i", "alt": ["8"], "weight": 1.0 },
+        { "label": "O", "output": "o", "alt": ["9"], "weight": 1.0 },
+        { "label": "P", "output": "p", "alt": ["0"], "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "A", "output": "a", "alt": ["@"], "weight": 1.0 },
+        { "label": "S", "output": "s", "alt": ["#"], "weight": 1.0 },
+        { "label": "D", "output": "d", "alt": ["$"], "weight": 1.0 },
+        { "label": "F", "output": "f", "alt": ["%"], "weight": 1.0 },
+        { "label": "G", "output": "g", "alt": ["&"], "weight": 1.0 },
+        { "label": "H", "output": "h", "alt": ["-"], "weight": 1.0 },
+        { "label": "J", "output": "j", "alt": ["+"], "weight": 1.0 },
+        { "label": "K", "output": "k", "alt": ["("], "weight": 1.0 },
+        { "label": "L", "output": "l", "alt": [")"], "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "shift", "label": "⇧", "weight": 1.3 },
+        { "label": "Z", "output": "z", "alt": ["*"], "weight": 1.0 },
+        { "label": "X", "output": "x", "alt": ["\""], "weight": 1.0 },
+        { "label": "C", "output": "c", "alt": ["'"], "weight": 1.0 },
+        { "label": "V", "output": "v", "alt": [":"], "weight": 1.0 },
+        { "label": "B", "output": "b", "alt": [";"], "weight": 1.0 },
+        { "label": "N", "output": "n", "alt": ["!"], "weight": 1.0 },
+        { "label": "M", "output": "m", "alt": ["?"], "weight": 1.0 },
+        { "type": "backspace", "label": "⌫", "weight": 1.3 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "symbol", "label": "123", "targetLayer": "symbols", "weight": 1.1 },
+        { "type": "emoji", "label": "😊", "targetLayer": "emojis", "weight": 1.0 },
+        { "type": "language", "label": "🌐", "weight": 1.0 },
+        { "type": "space", "label": "English", "output": " ", "weight": 3.8 },
+        { "label": ".", "output": ".", "alt": [".com"], "weight": 0.9 },
+        { "type": "enter", "label": "↵", "weight": 1.3 }
+      ]
+    }
+  ]
+}

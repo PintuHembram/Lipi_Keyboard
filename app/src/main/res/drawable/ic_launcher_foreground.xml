@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer White Glow/Border for the Emblem -->
+    <path
+        android:pathData="M54,19 C51,19 46,24 43,27 C34,32 25,43 26,56 C27,69 41,80 54,87 C67,80 81,69 82,56 C83,43 74,32 65,27 C62,24 57,19 54,19 Z"
+        android:fillColor="#33FF007F"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"/>
+
+    <!-- Main Pink Heart / Flame Outer Body -->
+    <path
+        android:pathData="M54,21 C51.8,21 47.5,25.5 44.5,28.2 C36.2,32.8 28,43 29,55.5 C30,67.5 42.5,77.8 54,84 C65.5,77.8 78,67.5 79,55.5 C80,43 71.8,32.8 63.5,28.2 C60.5,25.5 56.2,21 54,21 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="20"
+                android:endX="54"
+                android:endY="85"
+                android:type="linear">
+                <item android:color="#FF2A85" android:offset="0.0"/>
+                <item android:color="#E60067" android:offset="0.5"/>
+                <item android:color="#B3004B" android:offset="1.0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Dark Cutout creating double-line heart effect -->
+    <path
+        android:pathData="M54,32 C52.5,32 49,35 46.5,37 C40.5,40.5 35,48 35.8,56 C36.5,64 45,71 54,76 C63,71 71.5,64 72.2,56 C73,48 67.5,40.5 61.5,37 C59,35 55.5,32 54,32 Z"
+        android:fillColor="#0A192F"/>
+
+    <!-- Inner Flame / Script Motif (Pink + White Highlight) -->
+    <path
+        android:pathData="M54,27 C52,27 49,32 48,36 C47,40 49,43 51,45 C53,47 54,50 53,54 C52,58 48,61 46,63 C49,64 53,64 56,62 C59,60 61,56 61,52 C61,46 56,43 55,39 C54,35 56,31 54,27 Z"
+        android:fillColor="#FF2A85"/>
+
+    <!-- Inner Core Flame (White/Light Pink Accent) -->
+    <path
+        android:pathData="M54,30 C53,30 51,33 50.5,36 C50,39 51,41 52.5,43 C54,45 54.5,48 53.8,51 C53.2,54 50.5,56.5 49,58 C51,59 54,58.5 56,57 C58,55.2 59.2,52.5 59,49.5 C58.7,45 54.8,42.5 54.2,39.5 C53.6,36.5 55,33 54,30 Z"
+        android:fillColor="#FFF0F5"/>
+
+    <!-- Stylized Top Flame Tip -->
+    <path
+        android:pathData="M54,16 C53,19 51,21 52.5,24 C53.5,22 55,20.5 55.5,18 C56,16.5 55,15 54,16 Z"
+        android:fillColor="#FF75A0"/>
+</vector>

@@ -1,0 +1,55 @@
+𑢶𑣁𑣜𑣁𑣄	ମାରାଃ		word
+𑢷𑣁𑣚𑣃	ବାଲୁ		word
+𑢸𑣃𑣕𑣈𑣖	ପୁତେମ୍		word
+𑢹𑣉𑣜𑣉	ହର		word
+𑢺𑣁𑣓𑣒𑣈𑣓	ଲାଣ୍ଟେନ୍		word
+𑢡𑣖𑣗𑣁𑣛𑣁	ଆମ୍ବାଳା		word
+𑢼𑣉𑣌𑣉	ରକ		word
+𑢽𑣂𑣖	ଷିମ୍		word
+𑢾𑣈𑣕𑣁	ସେତା		word
+𑢡𑣊	ଆଂ		word
+𑢫𑣁𑣛𑣂	ଗାଳି		word
+𑢬𑣉𑣌𑣉𑣜	କକର		word
+𑢷𑣂𑣍	ବିଞୀ		word
+𑢮𑣁𑣜𑣖	ଜାରମ୍		word
+𑢯𑣉𑣌𑣈	ଚକେ		word
+𑢸𑣉𑣐𑣉𑣞𑣉	ପଣସ		word
+𑢱𑣉𑣓𑣑𑣁	ଡଣ୍ଡା		word
+𑢲𑣉𑣓𑣃𑣉	ଟଣ୍ଟ		word
+𑢳𑣁𑣜𑣂𑣈𑣚	ନାରିଏଲ୍		word
+𑢴𑣁𑣜𑣃	ଦାରୁ		word
+𑢵𑣉𑣁𑣇	ତୱାଉ		word
+𑢾𑣂𑣌𑣂𑣀	ଁ, ସିକିଂ		letter_or_sound_mapping
+𑢾𑣄	ଆ, ଆଃ		letter_or_sound_mapping
+𑢵𑣂	ଇ, ତି		letter_or_sound_mapping
+𑢬𑣃𑣚𑣈	ଉ, କୁଲେ		letter_or_sound_mapping
+𑢨𑣜𑣁	ଏ, ଏରା		letter_or_sound_mapping
+𑢩𑣈	ଅ, ଅଏ		letter_or_sound_mapping
+𑢡𑣄𑣞𑣁𑣜	ଃ, ଆଃସାର୍		letter_or_sound_mapping
+𑢵𑣃𑣅𑣃	ୟ, ତୁୟୁ		letter_or_sound_mapping
+𑢦𑣘𑣂𑣚	ଇ, ଇପିଲ୍		letter_or_sound_mapping
+𑢧𑣚𑣂	ଉ, ଉଲି		letter_or_sound_mapping
+𑢾𑣋𑣃𑣓 𑢾𑣂𑣕𑣁𑣙	ସାଗୁନ୍ ସିତାଃ	Sagun Sitah	word
+𑢾𑣋𑣃𑣓 𑢾𑣈𑣕𑣁𑣙	ସାଗୁନ୍ ସେତାଃ	Sagun Setah	word
+𑢷𑣉𑣌𑣁	ବୋକା		word
+𑣁𑣁𑣄	ଆ		word
+𑣋𑣈𑣚	ଗେଲ୍	ଗେଲେୟା	number	10
+𑢼𑣈𑣅𑣁	ରେୟା	ଆରେୟା	number	9
+𑢼𑣂𑣚	ରିଲ୍	ଇରିଲିୟା	number	8
+𑢦𑣅𑣁	ଇୟା	ଆଇୟେ	number	7
+𑢵𑣃𑣜	Q	ତୁରୁୟେ	number	6
+𑢶𑣉𑣑	ମଡ୍	ମୟାଁ	number	5
+𑢸𑣃𑣓	ପୁନ୍	ଉପୁନିୟେ	number	4
+𑢸𑣂𑣅𑣁	ପିୟା	ଆପିୟେ	number	3
+𑢼𑣂𑣅𑣁	ରିୟା	ବାରିୟେ	number	2
+𑢶𑣉𑣅𑣑	ମୟଡ୍	ମିୟେଡ୍	number	1
+𑢹𑣂𑣝𑣂	ହିଷି	ହିଷି	number	90
+𑢫𑣈𑣚 𑣜𑣈𑣅𑣁	ଗେଲ୍ ରେୟା	ଗେଲ୍ ଆରେୟା	number	19
+𑢫𑣈𑣚 𑣜𑣂𑣚	ଗେଲ୍ ରିଲ୍	ଗେଲ୍ ଇରିଲିୟା	number	18
+𑢫𑣈𑣚 𑣆𑣅𑣁	ଗେଲ୍ ଇୟା	ଗେଲ୍ ଆଇୟେ	number	17
+𑢫𑣈𑣚 𑣕𑣃𑣜	ଗେଲ୍ ତୁର୍	ଗେଲ୍ ତୁରୁୟେ	number	16
+𑢫𑣈𑣚 𑣖𑣉𑣑	ଗେଲ୍ ମଡ୍	ଗେଲ୍ ମୟାଁ	number	15
+𑢫𑣈𑣚 𑣘𑣃𑣓	ଗେଲ୍ ପୁନ୍	ଗେଲ୍ ଉପୁନିୟେ	number	14
+𑢫𑣈𑣚 𑣘𑣂𑣅𑣁	ଗେଲ୍ ପିୟା	ଗେଲ୍ ଆପିୟେ	number	13
+𑢫𑣈𑣚 𑣜𑣂𑣅𑣁	ଗେଲ୍ ରିୟା	ଗେଲ୍ ବାରିୟେ	number	12
+𑢫𑣈𑣚 𑣖𑣉𑣅𑣑	ଗେଲ୍ ମୟଡ୍	ଗେଲ୍ ମିୟେଡ୍	number	11

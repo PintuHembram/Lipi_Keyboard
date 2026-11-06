@@ -1,0 +1,58 @@
+{
+  "id": "symbols",
+  "name": "Symbols & Numbers",
+  "language": "all",
+  "rows": [
+    {
+      "keys": [
+        { "label": "1", "output": "1", "alt": ["୧"], "weight": 1.0 },
+        { "label": "2", "output": "2", "alt": ["୨"], "weight": 1.0 },
+        { "label": "3", "output": "3", "alt": ["୩"], "weight": 1.0 },
+        { "label": "4", "output": "4", "alt": ["୪"], "weight": 1.0 },
+        { "label": "5", "output": "5", "alt": ["୫"], "weight": 1.0 },
+        { "label": "6", "output": "6", "alt": ["୬"], "weight": 1.0 },
+        { "label": "7", "output": "7", "alt": ["୭"], "weight": 1.0 },
+        { "label": "8", "output": "8", "alt": ["୮"], "weight": 1.0 },
+        { "label": "9", "output": "9", "alt": ["୯"], "weight": 1.0 },
+        { "label": "0", "output": "0", "alt": ["୦"], "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "@", "output": "@", "weight": 1.0 },
+        { "label": "#", "output": "#", "weight": 1.0 },
+        { "label": "₹", "output": "₹", "alt": ["$"], "weight": 1.0 },
+        { "label": "%", "output": "%", "weight": 1.0 },
+        { "label": "&", "output": "&", "weight": 1.0 },
+        { "label": "-", "output": "-", "weight": 1.0 },
+        { "label": "+", "output": "+", "weight": 1.0 },
+        { "label": "(", "output": "(", "weight": 1.0 },
+        { "label": ")", "output": ")", "weight": 1.0 },
+        { "label": "/", "output": "/", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "symbol", "label": "=/<", "targetLayer": "symbols_more", "weight": 1.4 },
+        { "label": "*", "output": "*", "weight": 1.0 },
+        { "label": "\"", "output": "\"", "weight": 1.0 },
+        { "label": "'", "output": "'", "weight": 1.0 },
+        { "label": ":", "output": ":", "weight": 1.0 },
+        { "label": ";", "output": ";", "weight": 1.0 },
+        { "label": "!", "output": "!", "weight": 1.0 },
+        { "label": "?", "output": "?", "weight": 1.0 },
+        { "type": "backspace", "label": "⌫", "weight": 1.4 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "abc", "label": "ABC", "weight": 1.2 },
+        { "type": "emoji", "label": "😊", "targetLayer": "emojis", "weight": 1.0 },
+        { "label": ",", "output": ",", "weight": 1.0 },
+        { "type": "space", "label": "Space", "output": " ", "weight": 3.6 },
+        { "label": ".", "output": ".", "weight": 1.0 },
+        { "type": "enter", "label": "↵", "weight": 1.3 }
+      ]
+    }
+  ]
+}

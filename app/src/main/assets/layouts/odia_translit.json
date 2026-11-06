@@ -1,0 +1,58 @@
+{
+  "id": "odia_translit",
+  "name": "ଓଡ଼ିଆ (Transliteration)",
+  "language": "or",
+  "isTransliteration": true,
+  "rows": [
+    {
+      "keys": [
+        { "label": "q", "output": "q", "hint": "କ", "alt": ["1"], "weight": 1.0 },
+        { "label": "w", "output": "w", "hint": "ୱ", "alt": ["2"], "weight": 1.0 },
+        { "label": "e", "output": "e", "hint": "ଏ", "alt": ["3"], "weight": 1.0 },
+        { "label": "r", "output": "r", "hint": "ର", "alt": ["4"], "weight": 1.0 },
+        { "label": "t", "output": "t", "hint": "ତ", "alt": ["5", "ଟ"], "weight": 1.0 },
+        { "label": "y", "output": "y", "hint": "ୟ", "alt": ["6"], "weight": 1.0 },
+        { "label": "u", "output": "u", "hint": "ଉ", "alt": ["7"], "weight": 1.0 },
+        { "label": "i", "output": "i", "hint": "ଇ", "alt": ["8"], "weight": 1.0 },
+        { "label": "o", "output": "o", "hint": "ଓ", "alt": ["9"], "weight": 1.0 },
+        { "label": "p", "output": "p", "hint": "ପ", "alt": ["0"], "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "a", "output": "a", "hint": "ଅ", "alt": ["ଆ"], "weight": 1.0 },
+        { "label": "s", "output": "s", "hint": "ସ", "alt": ["ଶ", "ଷ"], "weight": 1.0 },
+        { "label": "d", "output": "d", "hint": "ଦ", "alt": ["ଡ", "ଡ଼"], "weight": 1.0 },
+        { "label": "f", "output": "f", "hint": "ଫ", "alt": ["%"], "weight": 1.0 },
+        { "label": "g", "output": "g", "hint": "ଗ", "alt": ["&"], "weight": 1.0 },
+        { "label": "h", "output": "h", "hint": "ହ", "alt": ["ଃ"], "weight": 1.0 },
+        { "label": "j", "output": "j", "hint": "ଜ", "alt": ["ଝ"], "weight": 1.0 },
+        { "label": "k", "output": "k", "hint": "କ", "alt": ["ଖ"], "weight": 1.0 },
+        { "label": "l", "output": "l", "hint": "ଲ", "alt": ["ଳ"], "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "shift", "label": "⇧", "weight": 1.4 },
+        { "label": "z", "output": "z", "alt": ["*"], "weight": 1.0 },
+        { "label": "x", "output": "x", "hint": "କ୍ଷ", "alt": ["\""], "weight": 1.0 },
+        { "label": "c", "output": "c", "hint": "ଚ", "alt": ["ଛ"], "weight": 1.0 },
+        { "label": "v", "output": "v", "hint": "ଭ", "alt": [":"], "weight": 1.0 },
+        { "label": "b", "output": "b", "hint": "ବ", "alt": [";"], "weight": 1.0 },
+        { "label": "n", "output": "n", "hint": "ନ", "alt": ["ଣ", "ଂ"], "weight": 1.0 },
+        { "label": "m", "output": "m", "hint": "ମ", "alt": ["ଂ", "ଁ"], "weight": 1.0 },
+        { "type": "backspace", "label": "⌫", "weight": 1.4 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "symbol", "label": "୧୨୩", "targetLayer": "symbols", "weight": 1.2 },
+        { "type": "emoji", "label": "😊", "targetLayer": "emojis", "weight": 1.0 },
+        { "type": "language", "label": "🌐", "weight": 1.0 },
+        { "type": "space", "label": "ଓଡ଼ିଆ (ଅ -> A)", "output": " ", "weight": 3.6 },
+        { "label": "।", "output": "।", "alt": ["."], "weight": 0.9 },
+        { "type": "enter", "label": "↵", "weight": 1.3 }
+      ]
+    }
+  ]
+}

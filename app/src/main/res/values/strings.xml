@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lipi Keyboard</string>
+    <string name="ime_name">Warang Chiti→Odia→English</string>
+    <string name="subtype_en_us">Lipi Keyboard</string>
+    <string name="subtype_or_translit">Odia (Transliteration)</string>
+    <string name="subtype_or_inscript">Odia (InScript)</string>
+    <string name="settings_title">Lipi Keyboard Settings</string>
+    <string name="enable_keyboard">Enable Lipi Keyboard</string>
+    <string name="select_keyboard">Select Lipi Keyboard</string>
+    <string name="try_keyboard">Test typing here…</string>
+</resources>

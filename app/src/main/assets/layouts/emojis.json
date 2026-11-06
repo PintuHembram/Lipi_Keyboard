@@ -1,0 +1,100 @@
+{
+  "id": "emojis",
+  "name": "Emojis 😊",
+  "language": "all",
+  "rows": [
+    {
+      "keys": [
+        { "label": "😀", "output": "😀", "weight": 1.0 },
+        { "label": "😃", "output": "😃", "weight": 1.0 },
+        { "label": "😄", "output": "😄", "weight": 1.0 },
+        { "label": "😁", "output": "😁", "weight": 1.0 },
+        { "label": "😆", "output": "😆", "weight": 1.0 },
+        { "label": "😅", "output": "😅", "weight": 1.0 },
+        { "label": "😂", "output": "😂", "weight": 1.0 },
+        { "label": "🤣", "output": "🤣", "weight": 1.0 },
+        { "label": "😊", "output": "😊", "weight": 1.0 },
+        { "label": "😇", "output": "😇", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "🙂", "output": "🙂", "weight": 1.0 },
+        { "label": "🙃", "output": "🙃", "weight": 1.0 },
+        { "label": "😉", "output": "😉", "weight": 1.0 },
+        { "label": "😌", "output": "😌", "weight": 1.0 },
+        { "label": "😍", "output": "😍", "weight": 1.0 },
+        { "label": "🥰", "output": "🥰", "weight": 1.0 },
+        { "label": "😘", "output": "😘", "weight": 1.0 },
+        { "label": "😗", "output": "😗", "weight": 1.0 },
+        { "label": "😙", "output": "😙", "weight": 1.0 },
+        { "label": "😚", "output": "😚", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "😋", "output": "😋", "weight": 1.0 },
+        { "label": "😛", "output": "😛", "weight": 1.0 },
+        { "label": "😜", "output": "😜", "weight": 1.0 },
+        { "label": "🤪", "output": "🤪", "weight": 1.0 },
+        { "label": "😎", "output": "😎", "weight": 1.0 },
+        { "label": "🤩", "output": "🤩", "weight": 1.0 },
+        { "label": "🥳", "output": "🥳", "weight": 1.0 },
+        { "label": "😏", "output": "😏", "weight": 1.0 },
+        { "label": "😒", "output": "😒", "weight": 1.0 },
+        { "label": "😞", "output": "😞", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "❤️", "output": "❤️", "weight": 1.0 },
+        { "label": "🧡", "output": "🧡", "weight": 1.0 },
+        { "label": "💛", "output": "💛", "weight": 1.0 },
+        { "label": "💚", "output": "💚", "weight": 1.0 },
+        { "label": "💙", "output": "💙", "weight": 1.0 },
+        { "label": "💜", "output": "💜", "weight": 1.0 },
+        { "label": "🖤", "output": "🖤", "weight": 1.0 },
+        { "label": "🤍", "output": "🤍", "weight": 1.0 },
+        { "label": "🤎", "output": "🤎", "weight": 1.0 },
+        { "label": "💔", "output": "💔", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "👍", "output": "👍", "weight": 1.0 },
+        { "label": "👎", "output": "👎", "weight": 1.0 },
+        { "label": "👌", "output": "👌", "weight": 1.0 },
+        { "label": "✌️", "output": "✌️", "weight": 1.0 },
+        { "label": "🤞", "output": "🤞", "weight": 1.0 },
+        { "label": "🤝", "output": "🤝", "weight": 1.0 },
+        { "label": "🙏", "output": "🙏", "weight": 1.0 },
+        { "label": "👏", "output": "👏", "weight": 1.0 },
+        { "label": "🙌", "output": "🙌", "weight": 1.0 },
+        { "label": "🔥", "output": "🔥", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "✨", "output": "✨", "weight": 1.0 },
+        { "label": "🌟", "output": "🌟", "weight": 1.0 },
+        { "label": "⭐", "output": "⭐", "weight": 1.0 },
+        { "label": "🎉", "output": "🎉", "weight": 1.0 },
+        { "label": "🎊", "output": "🎊", "weight": 1.0 },
+        { "label": "🌹", "output": "🌹", "weight": 1.0 },
+        { "label": "🪔", "output": "🪔", "weight": 1.0 },
+        { "label": "🇮🇳", "output": "🇮🇳", "weight": 1.0 },
+        { "label": "💯", "output": "💯", "weight": 1.0 },
+        { "type": "backspace", "label": "⌫", "weight": 1.3 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "abc", "label": "ABC", "weight": 1.3 },
+        { "label": "😊", "output": "😊", "weight": 1.0 },
+        { "type": "space", "label": "Emoji", "output": " ", "weight": 4.5 },
+        { "label": "👍", "output": "👍", "weight": 1.0 },
+        { "type": "enter", "label": "↵", "weight": 1.5 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "warang_chiti",
+  "name": "𑢹𑢺 (Warang Chiti)",
+  "language": "hoc",
+  "isInscript": true,
+  "rows": [
+    {
+      "keys": [
+        { "label": "𑣀", "output": "𑣀", "alt": ["𑢠"], "hint": "ngaa", "weight": 1.0 },
+        { "label": "𑣁", "output": "𑣁", "alt": ["𑢡"], "hint": "a", "weight": 1.0 },
+        { "label": "𑣂", "output": "𑣂", "alt": ["𑢢"], "hint": "wi", "weight": 1.0 },
+        { "label": "𑣃", "output": "𑣃", "alt": ["𑢣"], "hint": "yu", "weight": 1.0 },
+        { "label": "𑣄", "output": "𑣄", "alt": ["𑢤"], "hint": "ya", "weight": 1.0 },
+        { "label": "𑣅", "output": "𑣅", "alt": ["𑢥"], "hint": "yo", "weight": 1.0 },
+        { "label": "𑣆", "output": "𑣆", "alt": ["𑢦"], "hint": "ii", "weight": 1.0 },
+        { "label": "𑣇", "output": "𑣇", "alt": ["𑢧"], "hint": "uu", "weight": 1.0 },
+        { "label": "𑣈", "output": "𑣈", "alt": ["𑢨"], "hint": "e", "weight": 1.0 },
+        { "label": "𑣉", "output": "𑣉", "alt": ["𑢩"], "hint": "o", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "𑣊", "output": "𑣊", "alt": ["𑢪"], "hint": "ang", "weight": 1.0 },
+        { "label": "𑣋", "output": "𑣋", "alt": ["𑢫"], "hint": "ga", "weight": 1.0 },
+        { "label": "𑣌", "output": "𑣌", "alt": ["𑢬"], "hint": "ko", "weight": 1.0 },
+        { "label": "𑣍", "output": "𑣍", "alt": ["𑢭"], "hint": "eny", "weight": 1.0 },
+        { "label": "𑣎", "output": "𑣎", "alt": ["𑢮"], "hint": "yuj", "weight": 1.0 },
+        { "label": "𑣏", "output": "𑣏", "alt": ["𑢯"], "hint": "uc", "weight": 1.0 },
+        { "label": "𑣐", "output": "𑣐", "alt": ["𑢰"], "hint": "enn", "weight": 1.0 },
+        { "label": "𑣑", "output": "𑣑", "alt": ["𑢱"], "hint": "odd", "weight": 1.0 },
+        { "label": "𑣒", "output": "𑣒", "alt": ["𑢲"], "hint": "tte", "weight": 1.0 },
+        { "label": "𑣓", "output": "𑣓", "alt": ["𑢳"], "hint": "nung", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "𑣔", "output": "𑣔", "alt": ["𑢴"], "hint": "da", "weight": 1.0 },
+        { "label": "𑣕", "output": "𑣕", "alt": ["𑢵"], "hint": "ot", "weight": 1.0 },
+        { "label": "𑣖", "output": "𑣖", "alt": ["𑢶"], "hint": "am", "weight": 1.0 },
+        { "label": "𑣗", "output": "𑣗", "alt": ["𑢷"], "hint": "bu", "weight": 1.0 },
+        { "label": "𑣘", "output": "𑣘", "alt": ["𑢸"], "hint": "pu", "weight": 1.0 },
+        { "label": "𑣙", "output": "𑣙", "alt": ["𑢹"], "hint": "hiyo", "weight": 1.0 },
+        { "label": "𑣚", "output": "𑣚", "alt": ["𑢺"], "hint": "holo", "weight": 1.0 },
+        { "label": "𑣛", "output": "𑣛", "alt": ["𑢻"], "hint": "horr", "weight": 1.0 },
+        { "label": "𑣜", "output": "𑣜", "alt": ["𑢼"], "hint": "har", "weight": 1.0 },
+        { "label": "𑣝", "output": "𑣝", "alt": ["𑢽"], "hint": "ssuu", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "shift", "label": "⇧", "weight": 2.1 },
+        { "label": "@", "output": "@", "weight": 1.16 },
+        { "label": "𑣞", "output": "𑣞", "alt": ["𑢾"], "hint": "sii", "weight": 1.16 },
+        { "label": "𑣟", "output": "𑣟", "alt": ["𑢿"], "hint": "viyo", "weight": 1.16 },
+        { "label": "𑣿", "output": "𑣿", "hint": "Om", "weight": 1.16 },
+        { "label": "?", "output": "?", "weight": 1.16 },
+        { "type": "backspace", "label": "⌫", "weight": 2.1 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "symbol", "label": "?123", "targetLayer": "warang_chiti_symbols", "weight": 1.8 },
+        { "label": ",", "output": ",", "weight": 0.9 },
+        { "type": "language", "label": "🌐", "weight": 1.0 },
+        { "type": "space", "label": "Warang Chiti", "output": " ", "weight": 3.4 },
+        { "label": ".", "output": ".", "weight": 0.9 },
+        { "type": "enter", "label": "↵", "weight": 1.8 }
+      ]
+    }
+  ]
+}
