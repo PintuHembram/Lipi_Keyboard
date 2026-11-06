@@ -175,7 +175,10 @@ class InputController(
 
     private fun handleBackspace(ic: InputConnection) {
         if (composingBuffer.isNotEmpty()) {
-            composingBuffer.deleteCharAt(composingBuffer.length - 1)
+            val len = composingBuffer.length
+            val codePoint = composingBuffer.codePointBefore(len)
+            val charCount = Character.charCount(codePoint)
+            composingBuffer.delete(len - charCount, len)
             if (composingBuffer.isEmpty()) {
                 ic.finishComposingText()
                 onCandidatesUpdated(emptyList())
@@ -183,7 +186,14 @@ class InputController(
                 updateComposingText(ic)
             }
         } else {
-            ic.deleteSurroundingText(1, 0)
+            val textBefore = ic.getTextBeforeCursor(4, 0)?.toString() ?: ""
+            if (textBefore.isNotEmpty()) {
+                val codePoint = textBefore.codePointBefore(textBefore.length)
+                val charCount = Character.charCount(codePoint)
+                ic.deleteSurroundingText(charCount, 0)
+            } else {
+                ic.deleteSurroundingText(1, 0)
+            }
             onCandidatesUpdated(emptyList())
         }
     }
