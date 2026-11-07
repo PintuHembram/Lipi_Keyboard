@@ -23,6 +23,7 @@ class InputController(
     var isShifted: Boolean = false
     var isCapsLock: Boolean = false
     private var lastShiftPressTime: Long = 0L
+    private var currentSessionId: Long = System.currentTimeMillis()
 
     var onShiftStateChanged: (() -> Unit)? = null
 
@@ -38,6 +39,7 @@ class InputController(
         currentEditorInfo = info
         if (!restarting) {
             clearComposing()
+            currentSessionId = System.currentTimeMillis()
         }
         if (EditorInfoPolicy.isNumericField(info)) {
             onLayoutRequest("numpad")
@@ -167,8 +169,8 @@ class InputController(
         }
         ic.endBatchEdit()
 
-        val isSensitive = EditorInfoPolicy.isPersonalizedLearningDisabled(currentEditorInfo)
-        suggestionEngine.learnWord(candidate, isSensitive)
+        val isSensitive = EditorInfoPolicy.isSensitiveField(currentEditorInfo)
+        suggestionEngine.learnWord(candidate, currentSessionId, isSensitive)
 
         clearComposing()
     }
@@ -212,7 +214,7 @@ class InputController(
 
     private fun updateComposingText(ic: InputConnection) {
         val raw = composingBuffer.toString()
-        val isSensitive = EditorInfoPolicy.isPersonalizedLearningDisabled(currentEditorInfo)
+        val isSensitive = EditorInfoPolicy.isSensitiveField(currentEditorInfo)
         val candidates = suggestionEngine.getSuggestions(raw, currentEngine, isSensitive)
 
         val primary = candidates.firstOrNull() ?: raw
@@ -221,7 +223,7 @@ class InputController(
     }
 
     private fun updateSuggestions() {
-        val isSensitive = EditorInfoPolicy.isPersonalizedLearningDisabled(currentEditorInfo)
+        val isSensitive = EditorInfoPolicy.isSensitiveField(currentEditorInfo)
         if (isSensitive) {
             onCandidatesUpdated(emptyList())
             return

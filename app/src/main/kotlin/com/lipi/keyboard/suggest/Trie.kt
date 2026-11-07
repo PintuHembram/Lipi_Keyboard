@@ -21,6 +21,14 @@ class Trie {
         current.word = word
     }
 
+    fun contains(word: String): Boolean {
+        var current = root
+        for (char in word.lowercase()) {
+            current = current.children[char] ?: return false
+        }
+        return current.isEndOfWord
+    }
+
     fun getWordsWithPrefix(prefix: String, maxCount: Int = 5): List<String> {
         var current = root
         for (char in prefix) {

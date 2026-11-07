@@ -32,6 +32,26 @@ object EditorInfoPolicy {
         return (info.imeOptions and EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0
     }
 
+    fun isSensitiveField(info: EditorInfo?): Boolean {
+        if (info == null) return false
+        val inputType = info.inputType
+        val variation = inputType and InputType.TYPE_MASK_VARIATION
+        val clazz = inputType and InputType.TYPE_MASK_CLASS
+
+        val isPassword = isPasswordField(info)
+        val isEmail = clazz == InputType.TYPE_CLASS_TEXT && (
+                variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
+                variation == InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS
+        )
+        val isUri = clazz == InputType.TYPE_CLASS_TEXT && (
+                variation == InputType.TYPE_TEXT_VARIATION_URI
+        )
+        val isNumeric = isNumericField(info)
+        val noLearning = (info.imeOptions and EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0
+
+        return isPassword || isEmail || isUri || isNumeric || noLearning
+    }
+
     fun getActionLabel(info: EditorInfo?): String {
         if (info == null) return "↵"
         val action = info.imeOptions and (EditorInfo.IME_MASK_ACTION or EditorInfo.IME_FLAG_NO_ENTER_ACTION)

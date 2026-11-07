@@ -20,6 +20,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -27,6 +28,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
@@ -48,6 +50,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lipi.keyboard.data.PersonalDictionaryDatabase
 import com.lipi.keyboard.data.SettingsManager
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,6 +66,32 @@ fun SettingsScreen(
     var keyboardHeightScale by remember { mutableFloatStateOf(SettingsManager.getHeightScale(context)) }
     var hapticFeedbackEnabled by remember { mutableStateOf(SettingsManager.isHapticEnabled(context)) }
     var soundFeedbackEnabled by remember { mutableStateOf(SettingsManager.isSoundEnabled(context)) }
+    var learnWordsEnabled by remember { mutableStateOf(SettingsManager.isLearningEnabled(context)) }
+    var showClearDialog by remember { mutableStateOf(false) }
+
+    if (showClearDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearDialog = false },
+            title = { Text("Clear learned words?") },
+            text = { Text("This will permanently delete all learned words, candidates, and bigrams.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showClearDialog = false
+                        PersonalDictionaryDatabase(context).clearAllLearnedWords()
+                        Toast.makeText(context, "Learned words cleared!", Toast.LENGTH_SHORT).show()
+                    }
+                ) {
+                    Text("Clear")
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { showClearDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -295,7 +324,50 @@ fun SettingsScreen(
                 }
             }
 
-            // 5. Help, Complaints & Suggestions via Email
+            // 5. Personal Dictionary & Word Learning
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        "📚 Personal Dictionary & Word Learning",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Learn new words", fontWeight = FontWeight.Medium, fontSize = 14.sp)
+                            Text("Automatically learn frequently typed words after repeated use", color = Color.Gray, fontSize = 12.sp)
+                        }
+                        Switch(
+                            checked = learnWordsEnabled,
+                            onCheckedChange = {
+                                learnWordsEnabled = it
+                                SettingsManager.setLearningEnabled(context, it)
+                            }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    OutlinedButton(
+                        onClick = { showClearDialog = true },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("🗑️ Clear learned words")
+                    }
+                }
+            }
+
+            // 6. Help, Complaints & Suggestions via Email
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),

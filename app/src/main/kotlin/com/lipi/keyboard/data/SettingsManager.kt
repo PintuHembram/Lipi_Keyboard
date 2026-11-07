@@ -13,6 +13,7 @@ object SettingsManager {
     private const val KEY_HEIGHT = "key_height"
     private const val KEY_HAPTIC = "key_haptic"
     private const val KEY_SOUND = "key_sound"
+    private const val KEY_LEARNING = "key_learning"
 
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -122,5 +123,14 @@ object SettingsManager {
 
     fun setSoundEnabled(context: Context, enabled: Boolean) {
         getPrefs(context).edit().putBoolean(KEY_SOUND, enabled).apply()
+    }
+
+    // --- Learning ---
+    fun isLearningEnabled(context: Context): Boolean {
+        return getPrefs(context).getBoolean(KEY_LEARNING, true)
+    }
+
+    fun setLearningEnabled(context: Context, enabled: Boolean) {
+        getPrefs(context).edit().putBoolean(KEY_LEARNING, enabled).apply()
     }
 }
