@@ -143,7 +143,7 @@ class InputController(
             }
 
             KeyType.ABC -> {
-                onLayoutRequest(currentLayoutId)
+                switchToLayout(currentLayoutId)
             }
 
             else -> {
@@ -222,51 +222,27 @@ class InputController(
         onCandidatesUpdated(candidates)
     }
 
-    private fun updateSuggestions() {
-        val isSensitive = EditorInfoPolicy.isSensitiveField(currentEditorInfo)
-        if (isSensitive) {
-            onCandidatesUpdated(emptyList())
-            return
+    fun switchToLayout(layoutId: String) {
+        finishComposing()
+        clearComposing()
+        currentLayoutId = layoutId
+        currentEngine = when (layoutId) {
+            "qwerty_en" -> enEngine
+            "warang_chiti", "warang_chiti_symbols" -> warangChitiEngine
+            "odia_inscript" -> odiaInscriptEngine
+            else -> odiaTranslitEngine
         }
-        if (composingBuffer.isNotEmpty()) {
-            val suggestions = suggestionEngine.getSuggestions(composingBuffer.toString(), currentEngine, isSensitive)
-            onCandidatesUpdated(suggestions)
-        } else {
-            val ic = connectionProvider() ?: return
-            val textBefore = ic.getTextBeforeCursor(20, 0)?.toString() ?: ""
-            val lastWord = textBefore.split("\\s+".toRegex()).lastOrNull() ?: ""
-            val suggestions = suggestionEngine.getSuggestions(lastWord, currentEngine, isSensitive)
-            onCandidatesUpdated(suggestions)
-        }
+        onLayoutRequest(layoutId)
     }
 
     private fun switchLanguage() {
-        finishComposing()
-        clearComposing()
-
         when (currentLayoutId) {
-            "odia_translit" -> {
-                currentLayoutId = "qwerty_en"
-                currentEngine = enEngine
-            }
-            "qwerty_en" -> {
-                currentLayoutId = "warang_chiti"
-                currentEngine = warangChitiEngine
-            }
-            "warang_chiti" -> {
-                currentLayoutId = "odia_inscript"
-                currentEngine = odiaInscriptEngine
-            }
-            "odia_inscript" -> {
-                currentLayoutId = "odia_translit"
-                currentEngine = odiaTranslitEngine
-            }
-            else -> {
-                currentLayoutId = "odia_translit"
-                currentEngine = odiaTranslitEngine
-            }
+            "odia_translit" -> switchToLayout("qwerty_en")
+            "qwerty_en" -> switchToLayout("warang_chiti")
+            "warang_chiti" -> switchToLayout("odia_inscript")
+            "odia_inscript" -> switchToLayout("odia_translit")
+            else -> switchToLayout("odia_translit")
         }
-        onLayoutRequest(currentLayoutId)
     }
 
     private fun finishComposing() {

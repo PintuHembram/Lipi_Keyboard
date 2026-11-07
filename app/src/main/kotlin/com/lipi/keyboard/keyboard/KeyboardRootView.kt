@@ -78,6 +78,11 @@ class KeyboardRootView @JvmOverloads constructor(
             controller.handleKey(key)
         }
 
+        // Wire spacebar long press to activate Warang Chiti directly
+        keyboardView.onSpaceLongPressed = {
+            controller.switchToLayout("warang_chiti")
+        }
+
         // Apply settings & set initial layout
         applySettings()
         loadLayout(controller.currentLayoutId)

@@ -35,6 +35,7 @@ class KeyboardView @JvmOverloads constructor(
 
     var onKeyPressed: ((KeyData) -> Unit)? = null
     var onKeyLongPressed: ((KeyData) -> Unit)? = null
+    var onSpaceLongPressed: (() -> Unit)? = null
 
     // Theme Colors
     var bgColor: Int = Color.parseColor("#1B1B1F")
@@ -69,9 +70,13 @@ class KeyboardView @JvmOverloads constructor(
     private var activePointerId: Int = -1
 
     private val longPressRunnable = Runnable {
-        pressedKey?.let {
+        pressedKey?.let { key ->
             HapticsHelper.performKeyTick(this)
-            onKeyLongPressed?.invoke(it)
+            if (key.type == KeyType.SPACE) {
+                onSpaceLongPressed?.invoke()
+            } else {
+                onKeyLongPressed?.invoke(key)
+            }
         }
     }
 
