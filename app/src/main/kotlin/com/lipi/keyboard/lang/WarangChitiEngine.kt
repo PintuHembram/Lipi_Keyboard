@@ -2,20 +2,20 @@ package com.lipi.keyboard.lang
 
 /**
  * Warang Chiti Language Engine for Ho script.
- * Conforms to Unicode Standard Version 18.0 (Range: U+118A0–U+118FF).
  * Supports:
- * - Capital Letters (U+118A0–U+118BF)
- * - Small Letters (U+118C0–U+118DF)
- * - Digits & Numbers 0–90 (U+118E0–U+118F2)
- * - Sign ONG / OM (U+118FF)
+ * - English-India Latin to Ho (Warang Chiti) Unicode Transliteration
+ * - Boyo Gagrai & Ghanshyam Bodra ASCII font to Unicode Conversion
+ * - Automatic Spacebar Commit to Warang Chiti Unicode
+ * - Unicode Standard Version 18.0 (U+118A0–U+118FF)
  */
 class WarangChitiEngine : LanguageEngine {
 
     override val languageCode: String = "hoc"
     override val displayName: String = "𑢹𑢺 (Warang Chiti)"
-    override fun isTransliterating(): Boolean = false
+    override fun isTransliterating(): Boolean = true
 
     private val phoneticMap = linkedMapOf(
+        // Long/Double vowel mappings
         "ngaa" to "𑣀",
         "wi" to "𑣂",
         "yu" to "𑣃",
@@ -30,6 +30,7 @@ class WarangChitiEngine : LanguageEngine {
         "i" to "𑣂",
         "u" to "𑣃",
 
+        // Consonant names & multi-letter sounds
         "ang" to "𑣊",
         "ga" to "𑣋",
         "ko" to "𑣌",
@@ -53,6 +54,8 @@ class WarangChitiEngine : LanguageEngine {
         "sii" to "𑣞",
         "viyo" to "𑣟",
 
+        // Common phonetic & Boyo Gagrai / Ghanshyam Bodra ASCII font mappings
+        "chh" to "𑣏",
         "ch" to "𑣏",
         "sh" to "𑣝",
         "ss" to "𑣝",
@@ -82,12 +85,34 @@ class WarangChitiEngine : LanguageEngine {
 
     override fun processComposing(rawLatin: String): List<String> {
         if (rawLatin.isEmpty()) return emptyList()
-        val result = transliterate(rawLatin)
-        return listOf(result)
+
+        val firstCodePoint = rawLatin.codePointAt(0)
+        if (firstCodePoint in 0x118A0..0x118FF) {
+            return listOf(rawLatin)
+        }
+
+        val primary = transliterate(rawLatin)
+        val candidates = mutableListOf<String>()
+        candidates.add(primary)
+
+        when (rawLatin.lowercase()) {
+            "johar" -> candidates.add(0, "𑣎𑣉𑣙𑣁𑣜")
+            "ho" -> candidates.add(0, "𑣙𑣉")
+            "warang" -> candidates.add(0, "𑣟𑣁𑣜𑣁𑣊")
+            "chiti" -> candidates.add(0, "𑣏𑣂𑣒𑣂")
+            "namaste" -> candidates.add(0, "𑣓𑣁𑣖𑣁𑣞𑣒𑣈")
+        }
+
+        return candidates.distinct()
     }
 
     override fun onCommit(rawLatin: String, selectedCandidate: String?): String {
-        return selectedCandidate ?: transliterate(rawLatin)
+        if (selectedCandidate != null) return selectedCandidate
+        val firstCodePoint = if (rawLatin.isNotEmpty()) rawLatin.codePointAt(0) else 0
+        if (firstCodePoint in 0x118A0..0x118FF) {
+            return rawLatin
+        }
+        return processComposing(rawLatin).firstOrNull() ?: transliterate(rawLatin)
     }
 
     fun transliterate(input: String): String {
@@ -96,11 +121,12 @@ class WarangChitiEngine : LanguageEngine {
         val len = input.length
 
         while (i < len) {
-            val remaining = input.substring(i).lowercase()
+            val remaining = input.substring(i)
+            val lowerRemaining = remaining.lowercase()
             var matched = false
 
             for ((latin, warang) in phoneticMap) {
-                if (remaining.startsWith(latin)) {
+                if (lowerRemaining.startsWith(latin)) {
                     sb.append(warang)
                     i += latin.length
                     matched = true
@@ -111,7 +137,7 @@ class WarangChitiEngine : LanguageEngine {
             if (!matched) {
                 val c = input[i]
                 if (c in '0'..'9') {
-                    val digit = (0x118E0 + (c - '0')).toChar()
+                    val digit = String(Character.toChars(0x118E0 + (c - '0')))
                     sb.append(digit)
                 } else {
                     sb.append(c)
