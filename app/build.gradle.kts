@@ -17,6 +17,16 @@ android {
     versionName = "1.1"
   }
 
+  flavorDimensions += "version"
+  productFlavors {
+    create("base") {
+      dimension = "version"
+    }
+    create("online") {
+      dimension = "version"
+    }
+  }
+
   buildTypes {
     debug {
       isMinifyEnabled = false
@@ -92,4 +102,8 @@ dependencies {
   implementation(libs.androidx.navigation3.ui)
   implementation(libs.androidx.navigation3.runtime)
   implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+
+  // ML Kit On-Device Translate (Online flavor only)
+  "onlineImplementation"("com.google.mlkit:translate:17.0.3")
+  "onlineImplementation"("com.google.mlkit:language-id:17.0.6")
 }
