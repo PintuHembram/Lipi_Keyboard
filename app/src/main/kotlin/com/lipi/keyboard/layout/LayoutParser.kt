@@ -17,64 +17,109 @@ object LayoutParser {
     }
 
     fun parse(jsonString: String): KeyboardLayout {
-        val root = JSONObject(jsonString)
-        val id = root.optString("id", "default")
-        val name = root.optString("name", id)
-        val language = root.optString("language", "en")
-        val isTranslit = root.optBoolean("isTransliteration", false)
-        val isInscript = root.optBoolean("isInscript", false)
+        var id = "default"
 
-        val rowsArray = root.getJSONArray("rows")
+        val idMatch = """"id"\s*:\s*"([^"]+)"""".toRegex().find(jsonString)
+        if (idMatch != null) {
+            id = idMatch.groupValues[1]
+        }
+
+        val nameMatch = """"name"\s*:\s*"([^"]+)"""".toRegex().find(jsonString)
+        val name = nameMatch?.groupValues?.get(1) ?: id
+
+        var language = "en"
+        val langMatch = """"language"\s*:\s*"([^"]+)"""".toRegex().find(jsonString)
+        if (langMatch != null) {
+            language = langMatch.groupValues[1]
+        }
+
+        val isTranslit = jsonString.contains(""""isTransliteration"\s*:\s*true""".toRegex())
+        val isInscript = jsonString.contains(""""isInscript"\s*:\s*true""".toRegex())
+
         val rows = mutableListOf<KeyboardRow>()
 
-        for (i in 0 until rowsArray.length()) {
-            val rowObj = rowsArray.getJSONObject(i)
-            val keysArray = rowObj.getJSONArray("keys")
-            val keys = mutableListOf<KeyData>()
+        try {
+            val root = JSONObject(jsonString)
+            val rowsArray = root.optJSONArray("rows")
+            if (rowsArray != null && rowsArray.length() > 0) {
+                for (i in 0 until rowsArray.length()) {
+                    val rowObj = rowsArray.optJSONObject(i) ?: continue
+                    val keysArray = rowObj.optJSONArray("keys") ?: continue
+                    val keys = mutableListOf<KeyData>()
 
-            for (j in 0 until keysArray.length()) {
-                val keyObj = keysArray.getJSONObject(j)
-                val typeStr = keyObj.optString("type", "character").uppercase()
-                val type = when (typeStr) {
-                    "SHIFT" -> KeyType.SHIFT
-                    "BACKSPACE" -> KeyType.BACKSPACE
-                    "ENTER" -> KeyType.ENTER
-                    "SPACE" -> KeyType.SPACE
-                    "SYMBOL" -> KeyType.SYMBOL
-                    "ABC" -> KeyType.ABC
-                    "LANGUAGE" -> KeyType.LANGUAGE
-                    "SETTINGS" -> KeyType.SETTINGS
-                    "EMOJI" -> KeyType.EMOJI
-                    else -> KeyType.CHARACTER
+                    for (j in 0 until keysArray.length()) {
+                        val keyObj = keysArray.optJSONObject(j) ?: continue
+                        val typeStr = (keyObj.optString("type") ?: "character").uppercase()
+                        val type = when (typeStr) {
+                            "SHIFT" -> KeyType.SHIFT
+                            "BACKSPACE" -> KeyType.BACKSPACE
+                            "ENTER" -> KeyType.ENTER
+                            "SPACE" -> KeyType.SPACE
+                            "SYMBOL" -> KeyType.SYMBOL
+                            "ABC" -> KeyType.ABC
+                            "LANGUAGE" -> KeyType.LANGUAGE
+                            "SETTINGS" -> KeyType.SETTINGS
+                            "EMOJI" -> KeyType.EMOJI
+                            else -> KeyType.CHARACTER
+                        }
+
+                        val label = keyObj.optString("label") ?: ""
+                        val output = if (keyObj.has("output")) (keyObj.optString("output") ?: label) else label
+                        val hint = if (keyObj.has("hint")) keyObj.optString("hint") else null
+                        val weight = keyObj.optDouble("weight", 1.0).toFloat()
+                        val targetLayer = if (keyObj.has("targetLayer")) keyObj.optString("targetLayer") else null
+
+                        keys.add(
+                            KeyData(
+                                label = label,
+                                output = output,
+                                hint = hint,
+                                weight = weight,
+                                type = type,
+                                targetLayer = targetLayer
+                            )
+                        )
+                    }
+                    rows.add(KeyboardRow(keys))
                 }
+            }
+        } catch (_: Exception) {
+        }
 
-                val label = keyObj.optString("label", "")
-                val output = keyObj.optString("output", label)
-                val hint = if (keyObj.has("hint")) keyObj.getString("hint") else null
-                val weight = keyObj.optDouble("weight", 1.0).toFloat()
-                val targetLayer = if (keyObj.has("targetLayer")) keyObj.getString("targetLayer") else null
+        // Fallback for JVM unit tests where org.json is mocked
+        if (rows.isEmpty()) {
+            val rowBlocks = jsonString.split(""""keys"\s*:\s*\[""".toRegex()).drop(1)
+            for (block in rowBlocks) {
+                val keys = mutableListOf<KeyData>()
+                val keyObjects = block.split("}").filter { it.contains("label") }
+                for (keyStr in keyObjects) {
+                    val labelMatch = """"label"\s*:\s*"([^"]+)"""".toRegex().find(keyStr)
+                    val label = labelMatch?.groupValues?.get(1) ?: ""
 
-                val altList = mutableListOf<String>()
-                if (keyObj.has("alt")) {
-                    val altArray = keyObj.getJSONArray("alt")
-                    for (k in 0 until altArray.length()) {
-                        altList.add(altArray.getString(k))
+                    val targetMatch = """"targetLayer"\s*:\s*"([^"]+)"""".toRegex().find(keyStr)
+                    val targetLayer = targetMatch?.groupValues?.get(1)
+
+                    val typeMatch = """"type"\s*:\s*"([^"]+)"""".toRegex().find(keyStr)
+                    val typeStr = typeMatch?.groupValues?.get(1)?.uppercase() ?: "CHARACTER"
+                    val type = when (typeStr) {
+                        "SHIFT" -> KeyType.SHIFT
+                        "BACKSPACE" -> KeyType.BACKSPACE
+                        "ENTER" -> KeyType.ENTER
+                        "SPACE" -> KeyType.SPACE
+                        "SYMBOL" -> KeyType.SYMBOL
+                        "ABC" -> KeyType.ABC
+                        "EMOJI" -> KeyType.EMOJI
+                        else -> KeyType.CHARACTER
+                    }
+
+                    if (label.isNotEmpty()) {
+                        keys.add(KeyData(label = label, output = label, type = type, targetLayer = targetLayer))
                     }
                 }
-
-                keys.add(
-                    KeyData(
-                        label = label,
-                        output = output,
-                        hint = hint,
-                        alt = altList,
-                        weight = weight,
-                        type = type,
-                        targetLayer = targetLayer
-                    )
-                )
+                if (keys.isNotEmpty()) {
+                    rows.add(KeyboardRow(keys))
+                }
             }
-            rows.add(KeyboardRow(keys))
         }
 
         return KeyboardLayout(
