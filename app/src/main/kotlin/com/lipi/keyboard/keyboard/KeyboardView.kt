@@ -174,6 +174,14 @@ class KeyboardView @JvmOverloads constructor(
         val isEn = controller?.currentLayoutId == "qwerty_en"
         val labelToDraw = when {
             key.type == KeyType.SHIFT -> if (isCaps) "⇪" else "⇧"
+            key.type == KeyType.SPACE -> {
+                when (controller?.currentLayoutId) {
+                    "qwerty_en" -> "English"
+                    "warang_chiti" -> "𑢹𑢺 Warang Chiti"
+                    "odia_inscript" -> "ଓଡ଼ିଆ (InScript)"
+                    else -> "ଓଡ଼ିଆ (Translit)"
+                }
+            }
             isEn && key.type == KeyType.CHARACTER -> {
                 if (isShifted) key.label else key.output
             }

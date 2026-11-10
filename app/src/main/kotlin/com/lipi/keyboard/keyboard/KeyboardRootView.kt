@@ -1,10 +1,14 @@
 package com.lipi.keyboard.keyboard
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.inputmethodservice.InputMethodService
 import android.util.AttributeSet
+import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.compose.ui.platform.ComposeView
 import com.lipi.keyboard.data.SettingsManager
 import com.lipi.keyboard.ime.InputController
 import com.lipi.keyboard.layout.LayoutParser
@@ -19,6 +23,10 @@ class KeyboardRootView @JvmOverloads constructor(
     val toolbarView = KeyboardToolbarView(context)
     val candidateBarView = CandidateBarView(context)
     val keyboardView = KeyboardView(context)
+    val composePanelHost = ComposeView(context).apply {
+        visibility = GONE
+    }
+    val containerFrame = FrameLayout(context)
     val bottomBarView = KeyboardBottomBarView(context) {
         (context as? InputMethodService)?.requestHideSelf(0)
     }
@@ -35,9 +43,11 @@ class KeyboardRootView @JvmOverloads constructor(
         val barParams = LayoutParams(LayoutParams.MATCH_PARENT, (38 * density).toInt())
         addView(candidateBarView, barParams)
 
-        // Keyboard View (200dp)
-        val keyboardParams = LayoutParams(LayoutParams.MATCH_PARENT, (200 * density).toInt())
-        addView(keyboardView, keyboardParams)
+        // Container Frame (holds keyboardView + composePanelHost at SAME height)
+        val frameParams = LayoutParams(LayoutParams.MATCH_PARENT, (200 * density).toInt())
+        containerFrame.addView(keyboardView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        containerFrame.addView(composePanelHost, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        addView(containerFrame, frameParams)
 
         // Bottom Navigation Bar (34dp)
         val bottomParams = LayoutParams(LayoutParams.MATCH_PARENT, (34 * density).toInt())
@@ -51,9 +61,18 @@ class KeyboardRootView @JvmOverloads constructor(
         // Toolbar actions
         toolbarView.onToolbarItemClicked = { item ->
             when (item) {
-                "☷" -> loadLayout("menu_grid")
-                "😊" -> loadLayout("emojis")
-                "🏷️" -> loadLayout("stickers")
+                "☷" -> {
+                    closeTranslatePanel()
+                    loadLayout("menu_grid")
+                }
+                "😊" -> {
+                    closeTranslatePanel()
+                    loadLayout("emojis")
+                }
+                "🏷️" -> {
+                    closeTranslatePanel()
+                    loadLayout("stickers")
+                }
                 "📋" -> {
                     try {
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
@@ -68,7 +87,7 @@ class KeyboardRootView @JvmOverloads constructor(
                     }
                 }
                 "🌐" -> {
-                    controller.handleKey(com.lipi.keyboard.layout.KeyData(label = "🌐", type = com.lipi.keyboard.layout.KeyType.LANGUAGE))
+                    openTranslatePanel()
                 }
                 "⚙" -> {
                     val intent = Intent(context, com.lipi.keyboard.MainActivity::class.java).apply {
@@ -103,14 +122,65 @@ class KeyboardRootView @JvmOverloads constructor(
             controller.handleKey(key)
         }
 
-        // Wire spacebar long press to activate Warang Chiti directly
+        // Wire spacebar long press to open Language Picker dialog
         keyboardView.onSpaceLongPressed = {
-            controller.switchToLayout("warang_chiti")
+            showLanguagePickerDialog()
         }
 
         // Apply settings & set initial layout
         applySettings()
         loadLayout(controller.currentLayoutId)
+    }
+
+    fun openTranslatePanel() {
+        keyboardView.visibility = GONE
+        composePanelHost.visibility = VISIBLE
+        composePanelHost.setContent {
+            TranslatePanel(
+                connectionProvider = { controller.connectionProvider() },
+                activeLayoutId = controller.currentLayoutId,
+                onClosePanel = { closeTranslatePanel() }
+            )
+        }
+    }
+
+    fun closeTranslatePanel() {
+        composePanelHost.visibility = GONE
+        keyboardView.visibility = VISIBLE
+    }
+
+    fun showLanguagePickerDialog() {
+        val languages = arrayOf(
+            "ଓଡ଼ିଆ (Transliteration)",
+            "English (US)",
+            "𑢹𑢺 Warang Chiti (Ho)",
+            "ଓଡ଼ିଆ (InScript)",
+            "⌨️ Switch Keyboard (System)"
+        )
+        val currentIndex = when (controller.currentLayoutId) {
+            "qwerty_en" -> 1
+            "warang_chiti" -> 2
+            "odia_inscript" -> 3
+            else -> 0
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle("Select Keyboard Language")
+            .setSingleChoiceItems(languages, currentIndex) { dialog, which ->
+                dialog.dismiss()
+                when (which) {
+                    0 -> controller.switchToLayout("odia_translit")
+                    1 -> controller.switchToLayout("qwerty_en")
+                    2 -> controller.switchToLayout("warang_chiti")
+                    3 -> controller.switchToLayout("odia_inscript")
+                    4 -> {
+                        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                        imm?.showInputMethodPicker()
+                    }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     fun applySettings() {
@@ -133,10 +203,15 @@ class KeyboardRootView @JvmOverloads constructor(
         val density = resources.displayMetrics.density
         val scale = SettingsManager.getHeightScale(context) / 100f
         val keyboardHeight = (200 * density * scale).toInt()
-        keyboardView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, keyboardHeight)
+        containerFrame.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, keyboardHeight)
     }
 
     fun loadLayout(layoutId: String) {
+        if (layoutId == "translate") {
+            openTranslatePanel()
+            return
+        }
+        closeTranslatePanel()
         val assetPath = "layouts/$layoutId.json"
         try {
             val layout = LayoutParser.loadLayout(context, assetPath)

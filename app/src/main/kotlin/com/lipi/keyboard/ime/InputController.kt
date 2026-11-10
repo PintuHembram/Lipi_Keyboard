@@ -12,7 +12,7 @@ import com.lipi.keyboard.layout.KeyType
 import com.lipi.keyboard.suggest.SuggestionEngine
 
 class InputController(
-    private val connectionProvider: () -> InputConnection?,
+    val connectionProvider: () -> InputConnection?,
     private val suggestionEngine: SuggestionEngine,
     private val onCandidatesUpdated: (List<String>) -> Unit,
     private val onLayoutRequest: (layoutId: String) -> Unit
