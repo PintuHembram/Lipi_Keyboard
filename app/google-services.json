@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987972001946",
+    "project_id": "lipi-keyboard",
+    "storage_bucket": "lipi-keyboard.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987972001946:android:234a6fe7fc1e8003f1ff23",
+        "android_client_info": {
+          "package_name": "com.lipi.keyboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFkwQsbvosCZi10OaHv-PgttVCmCgOIVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

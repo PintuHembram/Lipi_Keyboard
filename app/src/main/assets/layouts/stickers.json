@@ -1,0 +1,39 @@
+{
+  "id": "stickers",
+  "name": "Stickers & GIFs 🏷️",
+  "language": "all",
+  "rows": [
+    {
+      "keys": [
+        { "label": "🏷️", "output": "🏷️", "weight": 1.0 },
+        { "label": "🎉", "output": "🎉", "weight": 1.0 },
+        { "label": "❤️", "output": "❤️", "weight": 1.0 },
+        { "label": "🔥", "output": "🔥", "weight": 1.0 },
+        { "label": "🌟", "output": "🌟", "weight": 1.0 },
+        { "label": "👏", "output": "👏", "weight": 1.0 },
+        { "label": "🎂", "output": "🎂", "weight": 1.0 },
+        { "label": "💯", "output": "💯", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "label": "🪔", "output": "🪔", "weight": 1.0 },
+        { "label": "🌺", "output": "🌺", "weight": 1.0 },
+        { "label": "🚩", "output": "🚩", "weight": 1.0 },
+        { "label": "🇮🇳", "output": "🇮🇳", "weight": 1.0 },
+        { "label": "🤝", "output": "🤝", "weight": 1.0 },
+        { "label": "🙏", "output": "🙏", "weight": 1.0 },
+        { "label": "✨", "output": "✨", "weight": 1.0 },
+        { "type": "backspace", "label": "⌫", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "abc", "label": "ABC", "weight": 1.2 },
+        { "label": "GIF", "output": "GIF", "weight": 1.0 },
+        { "type": "space", "label": "Stickers", "output": " ", "weight": 4.0 },
+        { "type": "enter", "label": "↵", "weight": 1.2 }
+      ]
+    }
+  ]
+}

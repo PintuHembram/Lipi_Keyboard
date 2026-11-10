@@ -2,6 +2,7 @@ package com.lipi.keyboard.keyboard
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,17 +17,27 @@ class KeyboardToolbarView(context: Context) : LinearLayout(context) {
         setBackgroundColor(Color.parseColor("#1B1B1F"))
         gravity = Gravity.CENTER_VERTICAL
         val density = resources.displayMetrics.density
-        setPadding((24 * density).toInt(), (0 * density).toInt(), (24 * density).toInt(), (0 * density).toInt())
+        setPadding((12 * density).toInt(), (2 * density).toInt(), (12 * density).toInt(), (2 * density).toInt())
 
-        val items = listOf("🌐", "😊", "⚙")
+        val items = listOf("☷", "😊", "🏷️", "📋", "🌐", "⚙", "🎤")
 
-        for (item in items) {
+        for ((index, item) in items.withIndex()) {
             val tv = TextView(context).apply {
                 text = item
-                textSize = 25f
+                textSize = 18f
                 setTextColor(Color.parseColor("#FFFFFF"))
                 gravity = Gravity.CENTER
-                layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
+                layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f).apply {
+                    if (index == items.size - 1) {
+                        val pillBg = GradientDrawable().apply {
+                            shape = GradientDrawable.RECTANGLE
+                            cornerRadius = 14f * density
+                            setColor(Color.parseColor("#4D827B"))
+                        }
+                        background = pillBg
+                        setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                }
                 setOnClickListener {
                     HapticsHelper.performKeyTick(this)
                     onToolbarItemClicked?.invoke(item)

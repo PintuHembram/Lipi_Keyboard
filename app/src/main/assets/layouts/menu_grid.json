@@ -1,0 +1,26 @@
+{
+  "id": "menu_grid",
+  "name": "Keyboard Menu ☷",
+  "language": "all",
+  "rows": [
+    {
+      "keys": [
+        { "type": "emoji", "label": "😊 Emoji", "targetLayer": "emojis", "weight": 1.0 },
+        { "type": "symbol", "label": "🏷️ Sticker", "targetLayer": "stickers", "weight": 1.0 },
+        { "type": "symbol", "label": "🔢 Numpad", "targetLayer": "numpad", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "settings", "label": "🎨 Themes", "targetLayer": "settings", "weight": 1.0 },
+        { "type": "language", "label": "🌐 Translate", "targetLayer": "language", "weight": 1.0 },
+        { "type": "settings", "label": "⚙️ Settings", "targetLayer": "settings", "weight": 1.0 }
+      ]
+    },
+    {
+      "keys": [
+        { "type": "abc", "label": "⌨️ Back to Keyboard (ABC)", "weight": 3.0 }
+      ]
+    }
+  ]
+}

@@ -51,7 +51,22 @@ class KeyboardRootView @JvmOverloads constructor(
         // Toolbar actions
         toolbarView.onToolbarItemClicked = { item ->
             when (item) {
+                "☷" -> loadLayout("menu_grid")
                 "😊" -> loadLayout("emojis")
+                "🏷️" -> loadLayout("stickers")
+                "📋" -> {
+                    try {
+                        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                        val clipData = clipboard?.primaryClip
+                        if (clipData != null && clipData.itemCount > 0) {
+                            val text = clipData.getItemAt(0).coerceToText(context).toString()
+                            if (text.isNotEmpty()) {
+                                controller.commitCandidate(text)
+                            }
+                        }
+                    } catch (_: Exception) {
+                    }
+                }
                 "🌐" -> {
                     controller.handleKey(com.lipi.keyboard.layout.KeyData(label = "🌐", type = com.lipi.keyboard.layout.KeyType.LANGUAGE))
                 }
@@ -61,6 +76,16 @@ class KeyboardRootView @JvmOverloads constructor(
                         putExtra("OPEN_SETTINGS", true)
                     }
                     context.startActivity(intent)
+                }
+                "🎤" -> {
+                    try {
+                        val intent = Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                            putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(intent)
+                    } catch (_: Exception) {
+                    }
                 }
                 else -> {
                     // Default action
