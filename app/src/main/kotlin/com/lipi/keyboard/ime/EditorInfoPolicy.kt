@@ -23,7 +23,18 @@ object EditorInfoPolicy {
     fun isNumericField(info: EditorInfo?): Boolean {
         if (info == null) return false
         val clazz = info.inputType and InputType.TYPE_MASK_CLASS
-        return clazz == InputType.TYPE_CLASS_NUMBER || clazz == InputType.TYPE_CLASS_PHONE || clazz == InputType.TYPE_CLASS_DATETIME
+        val variation = info.inputType and InputType.TYPE_MASK_VARIATION
+
+        val isNumberClass = clazz == InputType.TYPE_CLASS_NUMBER ||
+                clazz == InputType.TYPE_CLASS_PHONE ||
+                clazz == InputType.TYPE_CLASS_DATETIME
+
+        val isTextNumber = clazz == InputType.TYPE_CLASS_TEXT && (
+                variation == InputType.TYPE_TEXT_VARIATION_PHONETIC ||
+                variation == InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS
+        )
+
+        return isNumberClass || isTextNumber
     }
 
     fun isPersonalizedLearningDisabled(info: EditorInfo?): Boolean {

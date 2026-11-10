@@ -43,6 +43,8 @@ class InputController(
         }
         if (EditorInfoPolicy.isNumericField(info)) {
             onLayoutRequest("numpad")
+        } else {
+            switchToLayout(currentLayoutId)
         }
     }
 
@@ -82,8 +84,12 @@ class InputController(
         when (key.type) {
             KeyType.CHARACTER -> {
                 val output = getShiftedOutput(key)
-                composingBuffer.append(output)
-                updateComposingText(ic)
+                if (currentEngine.isTransliterating()) {
+                    composingBuffer.append(output)
+                    updateComposingText(ic)
+                } else {
+                    ic.commitText(output, 1)
+                }
                 if (isShifted && !isCapsLock) {
                     isShifted = false
                     onShiftStateChanged?.invoke()
