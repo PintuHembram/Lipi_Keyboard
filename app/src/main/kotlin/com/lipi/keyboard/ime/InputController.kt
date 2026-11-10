@@ -34,6 +34,7 @@ class InputController(
 
     var currentEngine: LanguageEngine = odiaTranslitEngine
     var currentLayoutId: String = "odia_translit"
+    var previousTextLayoutId: String = "odia_translit"
 
     fun onStart(info: EditorInfo?, restarting: Boolean) {
         currentEditorInfo = info
@@ -42,9 +43,9 @@ class InputController(
             currentSessionId = System.currentTimeMillis()
         }
         if (EditorInfoPolicy.isNumericField(info)) {
-            onLayoutRequest("numpad")
+            switchToLayout("numpad")
         } else {
-            switchToLayout(currentLayoutId)
+            switchToLayout(previousTextLayoutId)
         }
     }
 
@@ -149,7 +150,7 @@ class InputController(
             }
 
             KeyType.ABC -> {
-                switchToLayout(currentLayoutId)
+                switchToLayout(previousTextLayoutId)
             }
 
             else -> {
@@ -231,6 +232,11 @@ class InputController(
     fun switchToLayout(layoutId: String) {
         finishComposing()
         clearComposing()
+
+        if (isTextLayout(layoutId)) {
+            previousTextLayoutId = layoutId
+        }
+
         currentLayoutId = layoutId
         currentEngine = when (layoutId) {
             "qwerty_en" -> enEngine
@@ -241,14 +247,19 @@ class InputController(
         onLayoutRequest(layoutId)
     }
 
+    private fun isTextLayout(layoutId: String): Boolean {
+        return layoutId == "odia_translit" || layoutId == "qwerty_en" || layoutId == "warang_chiti" || layoutId == "odia_inscript"
+    }
+
     private fun switchLanguage() {
-        when (currentLayoutId) {
-            "odia_translit" -> switchToLayout("qwerty_en")
-            "qwerty_en" -> switchToLayout("warang_chiti")
-            "warang_chiti" -> switchToLayout("odia_inscript")
-            "odia_inscript" -> switchToLayout("odia_translit")
-            else -> switchToLayout("odia_translit")
+        val nextLayout = when (previousTextLayoutId) {
+            "odia_translit" -> "qwerty_en"
+            "qwerty_en" -> "warang_chiti"
+            "warang_chiti" -> "odia_inscript"
+            "odia_inscript" -> "odia_translit"
+            else -> "odia_translit"
         }
+        switchToLayout(nextLayout)
     }
 
     private fun finishComposing() {
